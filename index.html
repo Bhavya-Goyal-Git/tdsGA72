@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Employee Data Analysis</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f9fafb;
+      color: #333;
+    }
+    header {
+      background: linear-gradient(90deg, #4f46e5, #9333ea);
+      color: white;
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 1.8rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    main {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 1.5rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    }
+    section {
+      margin-bottom: 2rem;
+    }
+    h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.8rem;
+      color: #4f46e5;
+    }
+    pre {
+      background: #1e293b;
+      color: #e5e7eb;
+      padding: 1rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    img {
+      display: block;
+      max-width: 100%;
+      margin: 1rem auto;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+  </style>
+</head>
+<body>
+  <header>
+    📊 Employee Data Analysis
+  </header>
+  <main>
+    <section>
+      <h2>Python Code</h2>
+      <pre>
+import pandas as pd
+import numpy as np
+import seaborn as sns
+import matplotlib.pyplot as plt
+import random
+
+# Seed for reproducibility
+np.random.seed(42)
+random.seed(42)
+
+# Possible categories
+departments = ["R&D", "Sales", "IT", "HR", "Finance", "Marketing", "Operations"]
+regions = ["Europe", "Asia", "Middle East", "Africa", "North America", "South America"]
+
+# Generate 100 rows of data
+data = []
+for i in range(1, 101):
+    employee_id = f"EMP{i:03d}"
+    department = random.choice(departments)
+    region = random.choice(regions)
+    performance_score = round(np.random.uniform(50, 95), 2)  # between 50 and 95
+    years_experience = np.random.randint(1, 21)  # between 1 and 20 years
+    satisfaction_rating = round(np.random.uniform(2.5, 5.0), 1)  # between 2.5 and 5.0
+    data.append([employee_id, department, region, performance_score, years_experience, satisfaction_rating])
+
+# Create DataFrame
+df = pd.DataFrame(data, columns=["employee_id", "department", "region", "performance_score", "years_experience", "satisfaction_rating"])
+
+# 1. Frequency count for Finance department
+finance_count = (df["department"] == "Finance").sum()
+print(f"Frequency count for Finance department: {finance_count}")
+
+# 2. Create histogram of departments
+plt.figure(figsize=(8,6))
+sns.countplot(data=df, x="department", palette="Set2", order=df["department"].value_counts().index)
+plt.title("Distribution of Departments", fontsize=14)
+plt.xlabel("Department")
+plt.ylabel("Count")
+plt.xticks(rotation=30)
+plt.tight_layout()
+plt.savefig("histogram.png", dpi=300)
+plt.close()
+
+      </pre>
+    </section>
+    <section>
+      <h2>Histogram Visualization</h2>
+      <img src="histogram.png" alt="Histogram of Departments">
+    </section>
+  </main>
+</body>
+</html>
